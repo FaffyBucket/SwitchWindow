@@ -1,0 +1,77 @@
+/*
+************************************************************************************************
+* SwitchWindow                                                                                 *
+*                                                                                              *
+* Version:             0.1 (version history at the bottom of this script)                      *
+* AutoHotkey Version:  1.1                                                                     *
+* Language:            English                                                                 *
+* Platform:            Windows 10                                                              *
+* Author:              www.twitter.com/matthiew                                                *
+*                                                                                              *
+* Script Function:     Moves the current window to the next monitor.                           *
+************************************************************************************************
+*/
+
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+;#NoTrayIcon
+#SingleInstance force
+
+
+
+!`::
+	SysGet, MonitorCount, MonitorCount
+	WinGet, isMax, MinMax, A
+	
+	if (MonitorCount != 2)
+	{
+		MsgBox,, Error!, This only works if you have two monitors!
+		return
+	}
+	else
+	{
+		if isMax
+		{
+			WinRestore, A
+			Switch()
+			WinMaximize, A
+		}
+		else
+		{
+			Switch()
+		}		
+	}
+	return
+
+Switch()
+{
+	WinGetPos, WinX, WinY, , , A
+	SysGet Monitor1, Monitor, 1
+	SysGet Monitor2, Monitor, 2
+	
+	if ((Monitor1Left < WinX) && (WinX < Monitor1Right)
+			&& (Monitor1Top < WinY) && (WinY < Monitor1Bottom))
+	{
+		X := WinX - Monitor1Left + Monitor2Left
+		Y := WinY - Monitor1Top + Monitor2Top
+	}
+	if ((Monitor2Left < WinX) && (WinX < Monitor2Right)
+			&& (Monitor2Top < WinY) && (WinY < Monitor2Bottom))
+	{
+		X := WinX - Monitor2Left + Monitor1Left
+		Y := WinY - Monitor2Top + Monitor1Top
+	}
+	WinMove, A, , %X%, %Y%
+	return
+}
+
+
+/*
+************************************************************************************************
+SwitchWindow Version History:
+0.1 - Created SwitchWindow Switch.
+************************************************************************************************
+*/
