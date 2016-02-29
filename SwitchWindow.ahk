@@ -8,7 +8,7 @@
 * Platform:            Windows 10                                                              *
 * Author:              www.twitter.com/matthiew                                                *
 *                                                                                              *
-* Script Function:     Moves the current window to the next monitor.                           *
+* Script Function:     Moves the current window to the next monitor in a dual-screen setup.    *
 ************************************************************************************************
 */
 
@@ -72,6 +72,6 @@ Switch()
 /*
 ************************************************************************************************
 SwitchWindow Version History:
-1.0 - Created SwitchWindow Switch.
+1.0 - Created SwitchWindow.
 ************************************************************************************************
 */
